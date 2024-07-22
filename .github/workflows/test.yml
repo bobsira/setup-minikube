@@ -89,6 +89,10 @@ jobs:
     steps:
       - name: Install Docker
         shell: bash
+        # Install Docker dependencies
+        # Add Docker’s official GPG key
+        # Set up the Docker stable repository
+        # Install Docker
         run: |
           sudo apt update
           sudo apt install -y ca-certificates curl gnupg lsb-release
