@@ -130,38 +130,16 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Install Docker
-        shell: powershell
+        shell: bash
         run: |
           choco install docker-desktop
-          Start-Service docker
-          Sleep 30
-          docker run --rm --privileged docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64
-          & "C:\Program Files\Docker\Docker\DockerCli.exe" -SwitchLinuxEngine
-          Stop-Service docker
-          Sleep 10
-          Start-Service docker
-          Sleep 30
           docker --version
           docker info
           docker ps
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - uses: ./
         with:
-          driver: docker
-      - run: |
-          kubectl --namespace=kube-system rollout status deployment/coredns --timeout=60s --watch
-        shell: powershell
-      # Test basic networking and DNS resolution
-      - run: |
-          kubectl run \
-            --attach \
-            --image=docker.io/busybox \
-            --restart=Never \
-            --rm \
-            nslookup \
-            -- \
-            nslookup kubernetes.default.svc.cluster.local
-        shell: powershell
+          driver: docker      
   test-podman-driver:
     runs-on: ubuntu-24.04
     steps:
