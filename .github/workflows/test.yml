@@ -143,7 +143,8 @@ jobs:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - uses: ./
         with:
-          driver: hyperv     
+          driver: hyperv   
+          start-args: "--hyperv-virtual-switch='External VM Switch'"  
       - run: |
           kubectl --namespace=kube-system rollout status deployment/coredns --timeout=60s --watch
   test-podman-driver:
