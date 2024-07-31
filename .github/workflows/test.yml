@@ -144,7 +144,7 @@ jobs:
       - uses: ./
         with:
           driver: hyperv   
-          start-args: "--hyperv-virtual-switch='External VM Switch' --alsologtostderr"  
+          start-args: '--hyperv-virtual-switch="External VM Switch" --alsologtostderr' 
       - run: |
           kubectl --namespace=kube-system rollout status deployment/coredns --timeout=60s --watch
   test-podman-driver:
