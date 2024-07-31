@@ -136,7 +136,9 @@ jobs:
           docker --version
           docker info
           docker ps
-          New-VMSwitch -Name "Default Switch" -SwitchType Internal
+          Get-NetAdapter
+          $net = Get-NetAdapter -Name 'Ethernet'
+          New-VMSwitch -Name "External VM Switch" -AllowManagementOS $True -NetAdapterName $net.Name
           Get-VMSwitch
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - uses: ./
