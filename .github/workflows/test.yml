@@ -136,15 +136,13 @@ jobs:
           docker --version
           docker info
           docker ps
-          Get-NetAdapter
-          $net = Get-NetAdapter -Name 'Ethernet'
-          New-VMSwitch -Name "External-VM-Switch" -AllowManagementOS $True -NetAdapterName $net.Name
+          New-VMSwitch -Name "Default-Switch" -SwitchType Internal
           Get-VMSwitch
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
       - uses: ./
         with:
           driver: hyperv   
-          start-args: '--hyperv-virtual-switch=External-VM-Switch --alsologtostderr' 
+          start-args: '--hyperv-virtual-switch=Default-Switch --alsologtostderr' 
       - run: |
           kubectl --namespace=kube-system rollout status deployment/coredns --timeout=60s --watch
   test-podman-driver:
